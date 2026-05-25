@@ -24,6 +24,9 @@ for i in range(-1, len(close_price)):
         buy+=1
     else:
         sell+=1
-
-with open("sell_signals.txt", "w") as f:
+        
+with open("sell_signals.csv", "w") as f:
     f.write(f"Sell signals: {sell}\n")
+
+with open("buy_signals.csv", "w") as f:
+    f.write(f"Buy signals: {buy}\n")
