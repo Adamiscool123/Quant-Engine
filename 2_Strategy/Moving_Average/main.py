@@ -1,4 +1,5 @@
 import pandas as pd
+import csv
 
 data_path = "/home/adamidrissi/Quant-Engine/1_Data/^GSPC.csv"
 
@@ -19,14 +20,12 @@ buy = 0
 sell = 0
 
 # 4. Run your signal check
-for i in range(-1, len(close_price)):
-    if close_price.iloc[i] > moving_average.iloc[i]:
-        buy+=1
-    else:
-        sell+=1
-        
-with open("sell_signals.csv", "w") as f:
-    f.write(f"Sell signals: {sell}\n")
-
-with open("buy_signals.csv", "w") as f:
-    f.write(f"Buy signals: {buy}\n")
+with open("buy_sell_signals.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerow(['Date', 'Close', 'SMA_200', 'Signal']) 
+    
+    for i in range(-1, len(close_price)):
+        if close_price.iloc[i] > moving_average.iloc[i]:
+            f.write(f"{date.iloc[i]},{close_price.iloc[i]},{moving_average.iloc[i]},Buy\n")
+        else:
+            f.write(f"{date.iloc[i]},{close_price.iloc[i]},{moving_average.iloc[i]},Sell\n")
